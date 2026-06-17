@@ -1,32 +1,36 @@
 {
   "hooks": {
-    "PostToolUse": [
+    "PreToolUse": [
       {
-        "matcher": "Write|Edit",
+        "matcher": "Write|Edit|Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "semgrep mcp -k post-tool-cli-scan"
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh claude PreToolUse"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh claude PostToolUse"
           }
         ]
       }
     ],
     "SessionStart": [
       {
-        "matcher": "startup",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "semgrep mcp -k inject-secure-defaults"
-          }
-        ]
-      },
-      {
         "matcher": "startup|resume|clear|compact",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/check_version.sh"
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh claude SessionStart",
+            "async": true,
+            "timeout": 180
           }
         ]
       }
@@ -37,7 +41,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "semgrep mcp -k inject-secure-defaults-short"
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh claude UserPromptSubmit"
           }
         ]
       }

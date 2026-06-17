@@ -1,10 +1,8 @@
 {
   "mcpServers": {
-    "semgrep": {
-      "command": "semgrep",
-      "args": [
-        "mcp"
-      ]
+    "guardian": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh",
+      "args": ["claude", "mcp"]
     }
   }
 }

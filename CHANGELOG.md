@@ -1,23 +1,10 @@
-# Change Log
-## 0.5.3
-fix: update plugin, marketplace names (semgrep->semgrep-marketplace, semgrep-plugin->semgrep)
-## 0.5.2
-chore: update plugin and marketplace description
-## 0.5.1
-fix: update formatting in read-me.yaml for commands
-## 0.5.0
-chore: sync with template
-## 0.4.1
-Fixed the `--force` flag passsed into the `semgrep login` command
+# Changelog
 
-## 0.4.0
-Updated the `semgrep login` command for setup
+## 2.0.1
+- Splash Screen improved
+- Better reporting around rate limiting
+- Removed prompt defaults
 
-## 0.3.0
-Fixed bug in SessionStart hook
+## 2.0.0
 
-## 0.2.0
-Added a SessionStart hook for checking Semgrep version compatability
-
-## 0.1.0
-Initial release
+- First public release
