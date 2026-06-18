@@ -7,10 +7,10 @@
 > [!NOTE]
 > This project is under active development. We would love your feedback. Join the `#mcp` [community Slack](https://go.semgrep.dev/slack) channel!
 
-### Installation instructions:
+### :rocket: Installation instructions:
 
-> [!TIP]
-> **Get started in under 2 minutes** — run these five commands inside Claude Code.
+
+**Get started in under 2 minutes** — run these five commands inside Claude Code.
 
 1. Start a Claude Code instance by running:
     ```
@@ -80,3 +80,11 @@ environment.
 </tr>
 </table>
 
+### Catch security issues in realtime, before you push your code.
+![Guardian catching a debug=True security issue in agent-generated code](./assets/debug-issue.png)
+
+### Easily pull data from the Semgrep app via the MCP server.
+![Asking the Guardian MCP which Semgrep projects exist in a deployment](./assets/projects-call.png)
+
+### Use Semgrep MCP to provide context to your agent for remediation, without leaving your terminal.
+![Guardian listing supply chain findings with severity, issue, and location](./assets/sc-findings.png)
