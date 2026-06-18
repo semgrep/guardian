@@ -2,8 +2,6 @@
 ### A plugin that lives in your IDE, detecting and resolving the vulnerabilities, malicious packages, and hardcoded secrets your agent introduces before a PR is ever opened.
 [Semgrep](https://semgrep.dev) Guardian integrates natively with AI coding agents like Claude Code and Cursor to catch security issues before they ship. It bundles the Semgrep [MCP server](https://modelcontextprotocol.io/docs/getting-started/intro), Hooks, and Skills into a single install, and scans every file an agent generates using Semgrep Code, Supply Chain, and Secrets. When findings are detected, the agent is prompted to regenerate code until Semgrep returns clean results or you choose to dismiss them.
 
-[Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is a standardized API for LLMs, Agents, and IDEs like Claude Code, Cursor, VS Code, Windsurf, or anything that supports MCP, to get specialized help, get context, and harness the power of tools. Semgrep is a fast, deterministic static analysis tool that semantically understands many [languages](https://semgrep.dev/docs/supported-languages) and comes with over [10,000 rules](https://semgrep.dev/registry). 🛠️
-
 > [!NOTE]
 > This project is under active development. We would love your feedback. Join the `#mcp` [community Slack](https://go.semgrep.dev/slack) channel!
 
