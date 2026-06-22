@@ -6,5 +6,5 @@
   "description": "Semgrep Guardian: Scans agent-generated code for security vulnerabilities.",
   "displayName": "Semgrep Guardian",
   "name": "semgrep",
-  "version": "2.0.1"
+  "version": "2.0.2"
 }
