@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh claude PreToolUse"
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh\" claude PreToolUse"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh claude PostToolUse"
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh\" claude PostToolUse"
           }
         ]
       }
@@ -28,20 +28,33 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh claude SessionStart",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh\" claude SessionStart",
             "async": true,
             "timeout": 180
           }
         ]
       }
     ],
-    "UserPromptSubmit": [
+    "SessionEnd": [
+      {
+        "matcher": "clear|resume|logout|prompt_input_exit|bypass_permissions_disabled|other",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh\" claude SessionEnd",
+            "async": true,
+            "timeout": 180
+          }
+        ]
+      }
+    ],
+    "PostToolBatch": [
       {
         "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh claude UserPromptSubmit"
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh\" claude PostToolBatch"
           }
         ]
       }
