@@ -26,3 +26,11 @@ Installation instructions:
     This should call into the MCP, but if claude is having trouble,
     call `/clear` to restart claude, or exit and reopen claude manually.
 
+## Rolling out Guardian across your team
+
+For specific guidance to roll out Semgrep Guardian via an MDM or via your
+agent's built-in enterprise security controls, view this detailed documentation
+to help your security team enforce the standardization of Guardian across all
+their developers. For more details, this is how you roll it out:
+[Rolling out Semgrep Guardian](docs/rollout.md).
+
