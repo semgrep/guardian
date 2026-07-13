@@ -9,6 +9,7 @@ case "$OSTYPE" in
   darwin*)
     case "$HOSTTYPE" in
       arm64) exec "$DIR/hook-darwin-arm64" "$@" ;;
+      aarch64) exec "$DIR/hook-darwin-arm64" "$@" ;;
       *)     exec "$DIR/hook-darwin-amd64" "$@" ;;
     esac ;;
   linux*)
