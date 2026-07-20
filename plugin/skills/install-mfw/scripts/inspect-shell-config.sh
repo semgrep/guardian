@@ -4,7 +4,7 @@
 # home-manager / chezmoi / GNU stow / a dotfiles git repo) and mfw's source line
 # must instead go into the user's source-of-truth.
 #
-# WHY THIS MATTERS: `mfw setup` writes its source line with an atomic
+# WHY THIS MATTERS: `mfw fixup` writes its source line with an atomic
 # rename(tmp, rc). On a symlinked rc that REPLACES the symlink with a regular
 # file — clobbering a home-manager/nix-managed rc. So a managed rc must never be
 # edited in place.
