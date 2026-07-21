@@ -40,17 +40,18 @@ Your job: drive the install end to end, **ask the user only at genuine decision
 points** (via `AskUserQuestion`), and — the part that needs care — never edit a
 **managed** (symlinked) shell rc file in place. Work through the steps in order.
 
-## What setup will do (state this to the user up front)
+## What fixup will do (state this to the user up front)
 
 The installer downloads + checksum-verifies the binary to `~/.local/bin/mfw`, then
-setup: ① generates a local CA and **adds it to the OS trust store** (plus, on
+`mfw fixup`: ① generates a local CA and **adds it to the OS trust store** (plus, on
 macOS with Homebrew present, into Homebrew's openssl trust dir), ② drops
 package-manager **shim symlinks** in `~/.semgrep/mfw/shims`, ③ writes
 `~/.semgrep/mfw/rc-setup.sh` (PATH + proxy/CA env) and makes your **shell source
 it**, ④ installs a **background daemon** (launchd/systemd/openrc — skipped inside
 containers with no service manager) that runs the proxy and, via `mfw supervise`,
 **auto-updates** mfw on a schedule (on by default). Undo anytime with
-`mfw teardown`. It is a real, system-modifying install — make sure the user is on
+`mfw uninstall` (which also deletes the mfw binary). It is a real,
+system-modifying install — make sure the user is on
 board before you run it (they invoked this skill, so a brief summary + proceeding
 is fine; only stop for the choices below).
 
@@ -61,7 +62,7 @@ is fine; only stop for the choices below).
    published build — tell the user plainly.
 2. `command -v curl` (or `wget`). If neither, stop and say so.
 3. `command -v mfw` — if already installed, this is an idempotent re-run / upgrade;
-   carry on (setup self-heals).
+   carry on (fixup self-heals).
 
 ## Step 2 — Inspect the shell config BEFORE installing
 
@@ -80,7 +81,7 @@ For the user's `login_shell`, look at its rc file(s): zsh → `~/.zshrc`; bash �
   wrong — it's read-only (nix) or gets reverted on the next rebuild/apply.
 - **Plain** = a regular, writable file (or absent). Safe to edit directly.
 
-> **Why this gate exists:** `mfw setup` writes its one-line hook with an atomic
+> **Why this gate exists:** `mfw fixup` writes its one-line hook with an atomic
 > `rename()` over the rc file, which **replaces a symlink with a regular file** —
 > clobbering a nix/home-manager-managed rc. So managed rc files must never be
 > edited in place; mfw's one-line hook goes into the user's *source-of-truth*
@@ -91,7 +92,7 @@ Remember the result; it decides Step 3 and Step 4.
 ## Step 3 — Install
 
 **If the shell config is PLAIN** (and you don't otherwise need the managed path),
-use the standard installer — it downloads, verifies, and runs setup, correctly
+use the standard installer — it downloads, verifies, and runs `mfw fixup`, correctly
 editing the real rc file:
 
 ```
@@ -100,22 +101,22 @@ curl -fsSL https://semgrep.dev/dist/mfw/install.sh | sh
 
 (Swap the host if `$ARGUMENTS`/env gave an override: `…/<host>/dist/mfw/install.sh`.)
 
-`install.sh` reconnects a TTY (`mfw setup </dev/tty`) so a human running it in a
-terminal gets the interactive prompts, and falls back to `mfw setup --yes` when
+`install.sh` reconnects a TTY (`mfw fixup </dev/tty`) so a human running it in a
+terminal gets the interactive prompts, and falls back to `mfw fixup --yes` when
 there's no controlling terminal. When *you* run this line through the Bash tool
-there's no TTY, so it takes the `--yes` path: setup auto-accepts and edits the
+there's no TTY, so it takes the `--yes` path: fixup auto-accepts and edits the
 real rc file at mfw's best-guess paths — exactly what we want for a plain config.
 
-**If the shell config is MANAGED**, do **not** run the bundled setup (it would
-clobber the symlink). Install the binary only, then drive setup with shell edits
+**If the shell config is MANAGED**, do **not** run the bundled fixup (it would
+clobber the symlink). Install the binary only, then drive fixup with shell edits
 turned off:
 
 ```
 sh ${CLAUDE_SKILL_DIR}/scripts/install-binary.sh
-~/.local/bin/mfw setup --skip-login
+~/.local/bin/mfw fixup --skip-login
 ```
 
-`mfw setup` here runs non-interactively (no TTY), so it writes
+`mfw fixup` here runs non-interactively (no TTY), so it writes
 `~/.semgrep/mfw/rc-setup.sh`, installs certs/shims/daemon, and **prints** the
 shell lines instead of editing your rc — exactly what we want. We handle login in
 Step 6 and the shell hook in Step 4. (Pass an override URL with
@@ -169,7 +170,7 @@ Confirm the destination with the user before writing if there's any ambiguity.
 - **macOS:** adding the CA to the login keychain can pop a GUI "allow" / password
   prompt that you can't click. If the certs step didn't complete, tell the user to
   run `mfw install-certs` themselves and approve the prompt. (Homebrew's openssl
-  trust is handled by setup automatically when brew is present.)
+  trust is handled by fixup automatically when brew is present.)
 
 ## Step 6 — Login (optional, browser)
 
@@ -178,7 +179,7 @@ fail-open/closed policy — but it can't actually scan until authenticated. Chec
 the login line in `mfw doctor` (Step 7). If not authenticated, ask whether to log
 in now. `mfw login` opens a browser OAuth flow you can't complete for them, so
 have **them** run it in this session: suggest they type `! mfw login` (or set
-`SEMGREP_APP_TOKEN`). Don't block the rest of setup on it.
+`SEMGREP_APP_TOKEN`). Don't block the rest of fixup on it.
 
 ## Step 7 — Verify and hand off
 
@@ -189,11 +190,19 @@ have **them** run it in this session: suggest they type `! mfw login` (or set
    (`up to date` / `update available … run mfw upgrade`), whether auto-update is
    disabled, and whether the supervisor is running — don't treat those as ✗.
 2. Tell them to **restart their shell** — `exec "$SHELL" -l` or a new terminal —
-   then re-run `mfw doctor`; it should print "mfw is protecting this machine". If
+   then re-run `mfw doctor`; it should print the "Semgrep mfw is protecting this
+   machine." banner (a green `○○○` logo + a little watching face whose eyes are
+   randomized each run). If
    they're not logged in the headline is instead "mfw can't scan anything until
    you authenticate — run `mfw login`" (see Step 6); other steps can still be ✓.
+   If they're signed in but their Semgrep deployment doesn't have the Semgrep
+   malware firewall enabled, the login line is ✗ and the headline is "the Semgrep
+   malware firewall isn't enabled for your Semgrep deployment. Enable it in Semgrep
+   or ask your org admin." — that's a backend entitlement issue, not a fixup step,
+   so re-running `mfw fixup` won't fix it.
 3. Summarize what you did, where things live (`~/.semgrep/mfw/`, shims on PATH,
-   the managed daemon), and that `mfw teardown` reverses everything. mfw keeps
+   the managed daemon), and that `mfw uninstall` reverses everything (and deletes
+   the mfw binary). mfw keeps
    itself updated via the supervisor (auto-update on by default); `mfw upgrade`
    forces it now and `mfw restart` bounces the daemon.
 
@@ -204,12 +213,13 @@ have **them** run it in this session: suggest they type `! mfw login` (or set
   confirmation; let it.
 - **mfw's own rc-edit prompt** (only shown with a TTY — not when you drive it via
   the Bash tool): for the shell step it batches into one question,
-  `Edit them all? [y]es / [n]o, show me the line to add myself / [s]kip`, and
-  per-file it's `Apply to <path>? [y]es / [n]o, I'll do it myself / [s]kip`. `y`
-  edits the file, `n` immediately prints the source line to paste yourself, `s` skips.
-  Because your Bash-tool calls have no TTY, setup runs non-interactively: it still
-  writes `rc-setup.sh`, installs certs/shims/daemon, and *prints* (never edits)
-  the rc lines — which is exactly why the managed-config path in Step 3 works.
+  `Edit them all? [Y]es / [n]o, show me the line to add myself / [s]kip`, and
+  per-file it's `Apply to <path>? [Y]es / [n]o, I'll do it myself / [s]kip`. The
+  default is **yes** (Enter applies the edit); `n` immediately prints the source
+  line to paste yourself, `s` skips.
+  Because your Bash-tool calls have no TTY, `mfw fixup` runs non-interactively: it
+  still writes `rc-setup.sh`, installs certs/shims/daemon, and *prints* (never
+  edits) the rc lines — which is exactly why the managed-config path in Step 3 works.
 - Never put secrets/tokens in anything you write. The hook only sources a file.
 - If a step fails, report the actual error and what it means for protection
   (e.g. "certs not trusted → gated downloads fail TLS"); don't paper over it.

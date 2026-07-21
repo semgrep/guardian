@@ -1,13 +1,13 @@
 #!/bin/sh
 # Binary-only mfw install: resolve the latest version, download + SHA-256-verify
 # the asset for this platform, install it to ~/.local/bin/mfw, and STOP — it does
-# NOT run `mfw setup`.
+# NOT run `mfw fixup`.
 #
 # This is a trimmed mirror of the published install.sh (curl|sh). The skill uses
 # it when the user's shell rc files are *managed* (symlinked into nix /
-# home-manager / chezmoi / stow): the bundled `mfw setup --yes` would atomically
+# home-manager / chezmoi / stow): the bundled `mfw fixup --yes` would atomically
 # replace a symlinked rc with a regular file and clobber the managed config, so
-# we install the binary here and drive setup deliberately afterward.
+# we install the binary here and drive fixup deliberately afterward.
 #
 # Same env overrides as install.sh:
 #   MFW_BACKEND_URL  backend host (default https://semgrep.dev)
@@ -65,7 +65,7 @@ asset="mfw-$VERSION-$platform_tag"
 if [ -x "$INSTALL_DIR/mfw" ]; then
 	installed="$("$INSTALL_DIR/mfw" --version 2>/dev/null | awk '{print $2}')" || installed=""
 	if [ "$installed" = "$VERSION" ]; then
-		echo "mfw $VERSION already installed at $INSTALL_DIR/mfw (no setup run)"
+		echo "mfw $VERSION already installed at $INSTALL_DIR/mfw (no fixup run)"
 		exit 0
 	fi
 fi
@@ -88,7 +88,7 @@ grep -E "  ${asset}\$" "$tmp/SHA256SUMS" >"$tmp/SHA256SUMS.one" || true
 mkdir -p "$INSTALL_DIR"
 mv "$tmp/$asset" "$INSTALL_DIR/mfw"
 chmod +x "$INSTALL_DIR/mfw"
-echo "installed mfw $VERSION to $INSTALL_DIR/mfw (no setup run)"
+echo "installed mfw $VERSION to $INSTALL_DIR/mfw (no fixup run)"
 
 case ":$PATH:" in
 *":$INSTALL_DIR:"*) ;;
