@@ -1,10 +1,6 @@
 #!/bin/bash
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
-if [[ -n "$WSL_DISTRO_NAME" ]]; then
-  exec "$DIR/hook-windows-amd64.exe" "$@"
-fi
-
 case "$OSTYPE" in
   darwin*)
     case "$HOSTTYPE" in
