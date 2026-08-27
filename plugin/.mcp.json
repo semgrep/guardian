@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "guardian": {
-      "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh",
+      "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
       "args": ["claude", "mcp"]
     }
   }

@@ -3,7 +3,7 @@
 This page provides starting templates for rolling out Semgrep Guardian to a
 managed fleet. Guardian ships as a plugin for both Claude Code and Cursor.
 For Claude Code, rolling it out means pushing managed settings that
-automatically add the Guardian marketplace and enable the plugin for every
+enable the Guardian plugin from the Claude official marketplace for every
 user, so they don't have to run `/plugin` themselves. Cursor has its own
 admin-side mechanism (Team Marketplaces) that doesn't involve managed settings
 at all.
@@ -19,19 +19,15 @@ The minimal managed-settings payload looks like this:
 ```json
 {
   "enabledPlugins" : {
-    "semgrep@semgrep-marketplace" : true
-  },
-  "extraKnownMarketplaces" : {
-    "semgrep-marketplace" : {
-      "autoUpdate" : true,
-      "source" : {
-        "source" : "github",
-        "repo" : "semgrep/guardian"
-      }
-    }
+    "semgrep@claude-plugins-official" : true
   }
 }
 ```
+
+Guardian is published to the Claude official marketplace
+(`claude-plugins-official`), which Claude Code already knows about, so the
+payload only needs to enable the plugin — there's no separate marketplace to
+declare.
 
 For the Iru and Jamf paths, the same payload is provided as a ready-to-upload
 property list: [`com.anthropic.claudecode.plist`](com.anthropic.claudecode.plist).

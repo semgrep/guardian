@@ -6,7 +6,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh\" claude PreToolUse"
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
+            "args": ["claude", "PreToolUse"]
           }
         ]
       }
@@ -17,7 +18,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh\" claude PostToolUse"
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
+            "args": ["claude", "PostToolUse"]
           }
         ]
       }
@@ -28,7 +30,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh\" claude SessionStart",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
+            "args": ["claude", "SessionStart"],
             "async": true,
             "timeout": 180
           }
@@ -41,20 +44,10 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh\" claude SessionEnd",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
+            "args": ["claude", "SessionEnd"],
             "async": true,
             "timeout": 180
-          }
-        ]
-      }
-    ],
-    "PostToolBatch": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.sh\" claude PostToolBatch"
           }
         ]
       }
