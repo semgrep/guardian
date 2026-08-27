@@ -8,31 +8,27 @@
 ### :rocket: Installation instructions:
 
 
-**Get started in under 2 minutes** — run these five commands inside Claude Code.
+**Get started in under 2 minutes** — follow these five steps inside Claude Code.
 
-1. Start a Claude Code instance by running:
+1. Start a Claude Code instance:
     ```
     claude
     ```
-1. Add the Semgrep marketplace by running the following command in Claude:
+1. Open the plugin manager:
     ```
-    /plugin marketplace add semgrep/guardian
+    /plugin
     ```
-1. Install the plugin from the marketplace:
-    ```
-    /plugin install semgrep@semgrep-marketplace
-    ```
-1. Tell claude to load the plugin:
+1. Go to **Discover**, search for **Semgrep**, and click **Install**.
+1. Tell Claude to load the plugin:
     ```
     /reload-plugins
     ```
-1. Ask claude to login to semgrep, using the guardian mcp
+1. Ask Claude to login to Semgrep to kickoff onboarding:
     ```
     login to semgrep
     ```
 
-    This should call into the MCP, but if claude is having trouble,
-    call `/clear` to restart claude, or exit and reopen claude manually.
+    This calls into the Guardian MCP server. If Claude has trouble, run `/clear` to restart Claude, or exit and reopen it manually.
 
 
 ## What's included in the Semgrep Guardian?
