@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.3.0
 - Guardian now reports its status at session start, and says so when it is not configured
 - The session-start check verifies your credentials again, so an expired token is reported
   immediately instead of at the first blocked edit. It is capped at 1.5s for the check and
