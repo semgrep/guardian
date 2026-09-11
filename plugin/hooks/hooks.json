@@ -31,9 +31,27 @@
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
+            "args": ["claude", "SessionStatus"],
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
             "args": ["claude", "SessionStart"],
             "async": true,
             "timeout": 180
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
+            "args": ["claude", "Stop"],
+            "timeout": 5
           }
         ]
       }
