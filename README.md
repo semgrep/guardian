@@ -1,12 +1,13 @@
-# Semgrep Guardian: Claude Code Plugin
-### A plugin that runs in Claude Code, detecting and resolving the vulnerabilities, malicious packages, and hardcoded secrets your agent introduces before code even gets pushed.
-[Semgrep](https://semgrep.dev) Guardian integrates natively with AI coding agents like Claude Code and Cursor to catch security issues before they ship. It bundles the Semgrep [MCP server](https://modelcontextprotocol.io/docs/getting-started/intro), and Hooks into a single install, and scans every file an agent generates using Semgrep Code, Supply Chain, and Secrets. When findings are detected, the agent is prompted to regenerate code until Semgrep returns clean results or you choose to dismiss them.
+# Semgrep Guardian for coding agents
+
+### Detect and resolve vulnerabilities, malicious packages, and hardcoded secrets before agent-generated code gets pushed.
+
+[Semgrep](https://semgrep.dev) Guardian integrates natively with Claude Code to catch security issues before they ship. It bundles the Semgrep [MCP server](https://modelcontextprotocol.io/docs/getting-started/intro) and lifecycle hooks into a single install, and scans files the agent generates using Semgrep Code, Supply Chain, and Secrets. When findings are detected, the agent is prompted to regenerate code until Semgrep returns clean results or you choose to dismiss them.
 
 > [!NOTE]
 > This project is under active development. We would love your feedback. Join the `#mcp` [community Slack](https://go.semgrep.dev/slack) channel!
 
-### :rocket: Installation instructions:
-
+### :rocket: Installation instructions
 
 **Get started in under 2 minutes** — follow these five steps inside Claude Code.
 
