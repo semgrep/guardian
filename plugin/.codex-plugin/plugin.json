@@ -1,0 +1,66 @@
+{
+  "author": {
+    "name": "Semgrep",
+    "url": "https://semgrep.dev"
+  },
+  "description": "Semgrep Guardian scans agent-generated code for security vulnerabilities.",
+  "homepage": "https://semgrep.dev/docs/guardian",
+  "interface": {
+    "brandColor": "#6C47FF",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "category": "Developer Tools",
+    "defaultPrompt": [
+      "Log in to Semgrep Guardian for continuous agent-write scanning.",
+      "Show my Semgrep projects.",
+      "Review my existing Semgrep findings."
+    ],
+    "developerName": "Semgrep",
+    "displayName": "Semgrep Guardian",
+    "longDescription": "Semgrep Guardian scans code and dependency changes as Codex writes them, and gives the agent security findings to remediate immediately.",
+    "shortDescription": "Scan agent-generated code before it ships.",
+    "websiteURL": "https://semgrep.dev/docs/guardian"
+  },
+  "keywords": [
+    "security",
+    "semgrep",
+    "sast",
+    "sca",
+    "secrets"
+  ],
+  "mcpServers": {
+    "semgrep_guardian": {
+      "args": [
+        "codex",
+        "mcp"
+      ],
+      "command": "./scripts/hook",
+      "cwd": ".",
+      "env_vars": [
+        "SEMGREP_APP_TOKEN",
+        "SEMGREP_GUARDIAN_EMAIL",
+        "SEMGREP_GUARDIAN_SETTINGS",
+        "SEMGREP_GUARDIAN_TELEMETRY_URL",
+        "SEMGREP_SETTINGS_FILE",
+        "SEMGREP_LOG_FILE",
+        "XDG_CONFIG_HOME",
+        "SSL_CERT_FILE",
+        "SSL_CERT_DIR",
+        "REQUESTS_CA_BUNDLE",
+        "CURL_CA_BUNDLE",
+        "HTTP_PROXY",
+        "HTTPS_PROXY",
+        "NO_PROXY",
+        "http_proxy",
+        "https_proxy",
+        "no_proxy"
+      ]
+    }
+  },
+  "name": "semgrep",
+  "repository": "https://github.com/semgrep/guardian",
+  "skills": "./skills/",
+  "version": "2.4.0"
+}

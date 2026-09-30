@@ -2,24 +2,24 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Write|Edit|Bash",
+        "matcher": "Write|Edit|Bash|apply_patch",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
-            "args": ["claude", "PreToolUse"]
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto PreToolUse",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto PreToolUse"
           }
         ]
       }
     ],
     "PostToolUse": [
       {
-        "matcher": "Write|Edit|Bash",
+        "matcher": "Write|Edit|Bash|apply_patch",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
-            "args": ["claude", "PostToolUse"]
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto PostToolUse",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto PostToolUse"
           }
         ]
       }
@@ -30,14 +30,14 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
-            "args": ["claude", "SessionStatus"],
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto SessionStatus",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto SessionStatus",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
-            "args": ["claude", "SessionStart"],
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto SessionStart",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto SessionStart",
             "async": true,
             "timeout": 180
           }
@@ -49,8 +49,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
-            "args": ["claude", "Stop"],
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto Stop",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto Stop",
             "timeout": 5
           }
         ]
@@ -62,10 +62,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hook",
-            "args": ["claude", "SessionEnd"],
-            "async": true,
-            "timeout": 180
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto SessionEnd",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto SessionEnd",
+            "timeout": 3
           }
         ]
       }
