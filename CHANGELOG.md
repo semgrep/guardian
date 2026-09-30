@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.5.0
+- The plugin now ships a small launcher that downloads the scanner on first use, instead of
+  carrying it
+- Added Codex plugin metadata and portable hook commands to the Guardian release package
+- Added pre/post scanning for Codex `apply_patch`, including multi-file changes, moves and lockfiles
+- Each file a Codex `apply_patch` changes is scanned in its own request
+- Made session cleanup fit Codex's synchronous SessionEnd deadline
+- Made OAuth registration and callback pages identify Guardian for the active
+  Claude Code or Codex host
+- Forward `SEMGREP_APP_TOKEN` and TLS and proxy overrides to the Codex MCP server
+- Guardian now keeps itself up to date: new releases are picked up in the background at session
+  start, unless `auto_update: false` in `~/.semgrep/guardian.yml` or `SEMGREP_GUARDIAN_AUTO_UPDATE=0`
+  turns that off
+
 ## 2.4.0
 - Shell commands are now scanned from the files Claude Code reports they changed (Claude Code 2.1.269
   or newer), so `sed -i`, `python3 -c` and installs in subdirectories are covered; without that report

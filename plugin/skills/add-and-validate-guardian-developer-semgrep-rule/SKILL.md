@@ -20,9 +20,9 @@ a rule already there. it does not check the rule itself or count it against the
 deployment's limit — that happens when a scan reads the rules, and step 5 is
 how you find out.
 
-**one rule per file.** guardian reads each file as a single rule. a file holding
-two rules is rejected whole: neither is sent, and the scan runs as if the file
-were not there.
+**a file can hold one rule or a `rules:` list.** a file that fails to parse is
+rejected whole, so rules kept in one file are sent together or not at all. this
+skill writes one rule per file, which keeps that blast radius at one rule.
 
 ## step 1 — check the feature is on
 
@@ -108,7 +108,7 @@ tool writes the file first and checks nothing. so call
 the new file in it:
 
 - the file carries an error — guardian could not use it: yaml that does not
-  parse, a rule with no `id`, more than one rule in the file. it is left out of
+  parse, a rule with no `id`. it is left out of
   every scan without a word, so fix it in place now; the fixture below would
   just go through.
 - `n developer rules on disk, over the limit of m` — the deployment's cap, and

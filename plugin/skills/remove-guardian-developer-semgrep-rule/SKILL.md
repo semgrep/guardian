@@ -18,8 +18,8 @@ knowing who else loses it.
 
 Call `list_developer_semgrep_rules`. It reports both directories, every rule file
 with its scope and path, whether the rules are being sent, and the deployment's
-limit. Each file holds one rule; Guardian rejects a file with more than one, so
-removing a file removes exactly one rule from the count.
+limit. A file holds one rule or several, so check what a file carries before
+removing it: the count drops by every rule in it.
 
 If it refuses because the feature is off for the deployment, the rules on disk
 are still just files — nothing is being sent, so removal is still fine. List the
@@ -40,8 +40,8 @@ Three cases worth noticing in the listing:
   scanned until the count is back under.
 - A file reported with an error is not being sent at all — too big, unreadable,
   or not a usable rule. Removing it changes nothing about what is scanned, but
-  read the error first: if it says the file holds more than one rule, none of
-  them are running, and the user may want the others kept.
+  read the error first: a file that fails to parse takes every rule in it down,
+  and the user may want the others kept.
 - Every write is being blocked with *a developer rule is not valid*. The
   scanner validates the rules it is sent before running anything, and one that
   fails takes the whole scan down with it, so no scan runs until that rule is
