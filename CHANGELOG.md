@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.5.1
+
 ## 2.5.0
 - The plugin now ships a small launcher that downloads the scanner on first use, instead of
   carrying it
