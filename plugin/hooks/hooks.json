@@ -1,0 +1,80 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|Bash|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto PreToolUse",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto PreToolUse"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|Bash|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto PostToolUse",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto PostToolUse"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto SessionStatus",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto SessionStatus",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto SessionStart",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto SessionStart",
+            "async": true,
+            "timeout": 180
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto Update",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto Update",
+            "async": true,
+            "timeout": 180
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto Stop",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto Stop",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "clear|resume|logout|prompt_input_exit|bypass_permissions_disabled|other",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto SessionEnd",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto SessionEnd",
+            "timeout": 3
+          }
+        ]
+      }
+    ]
+  }
+}

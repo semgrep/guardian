@@ -1,0 +1,13 @@
+{
+    "name": "semgrep-marketplace",
+    "owner": {
+        "name": "Semgrep"
+    },
+    "plugins": [
+        {
+            "name": "semgrep",
+            "source": "./plugin",
+            "description": "Semgrep Guardian: Scans agent-generated code for security vulnerabilities."
+        }
+    ]
+}
