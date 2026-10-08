@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.6.0
+- The Stop summary is now shown only when there is something to act on (findings, a failed scan,
+  or something not scanned); a clean session no longer reports "0 findings" every turn
+- Guardian honours `DO_NOT_TRACK`, `DISABLE_TELEMETRY`, `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` and
+  `SEMGREP_SEND_METRICS=off`: it sends no telemetry to Semgrep and asks the scanner to skip its
+  usage metrics
+- `telemetry: false` in `~/.semgrep/guardian.yml` opts out of telemetry the same way, for a setting
+  that holds whatever environment Claude Code is started from
+- Fixed a git that hangs past its deadline (on Windows, the `cmd\git.exe` wrapper) stalling a hook,
+  and bounded the origin lookup behind the MCP project picker, which had no deadline at all
+- A failed login token exchange no longer copies the token endpoint's reply, which can echo the
+  client secret, into telemetry or hook output
+- Edits and shell commands no longer wait on a round trip to Semgrep before every hook: the
+  deployment scans are attributed to is cached with the rest of the deployment details
+
 ## 2.5.1
 
 ## 2.5.0
