@@ -76,6 +76,19 @@ ensuring a scan regardless of what the agent does.
 ![Guardian listing supply chain findings with severity, issue, and location](./assets/sc-findings.png)
 
 
+## What Guardian sends, and how to turn it off
+
+Guardian's hooks run on every file write in every project, since any code the agent writes can carry a vulnerability. To scan it, Guardian talks to Semgrep:
+
+- **`scanner.semgrep.ai`** receives the files the agent writes or edits (and their previous contents, so only new findings are reported), plus lockfiles and manifests for supply chain scans.
+- **`semgrep.dev`** handles login, your account and deployment details, the MCP tools, and downloads of the Guardian binary from `semgrep.dev/dist/guardian`, checked against a signed manifest before it runs.
+- **`telemetry.semgrep.dev`** receives OpenTelemetry traces and metrics: hook timings and outcomes, counts and file extensions of what was scanned, plugin and OS versions, and identifiers for this installation and your Semgrep account. It never receives file contents.
+
+To turn telemetry off, add `telemetry: false` to `~/.semgrep/guardian.yml`, or set any of `DO_NOT_TRACK`, `DISABLE_TELEMETRY` or `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`, or set `SEMGREP_SEND_METRICS=off`. Guardian then sends nothing to `telemetry.semgrep.dev`, and asks the scanner to skip its usage metrics for your scans.
+
+Guardian updates itself in the background at session start. To turn that off, set `auto_update: false` in `~/.semgrep/guardian.yml` or `SEMGREP_GUARDIAN_AUTO_UPDATE=0`; if Semgrep retires the version you have installed, Guardian stops with an error until you turn auto-update back on.
+
+
 ## Rolling out Guardian across your team
 
 For specific guidance to roll out Semgrep Guardian via an MDM or via your
