@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.7.0
+- Findings from a scan still running when Claude Code or Codex ends its turn now wake the agent
+  when the scan finishes, instead of waiting for the next prompt; Stop no longer holds the end of
+  the turn for up to 30 seconds
+
 ## 2.6.0
 - The Stop summary is now shown only when there is something to act on (findings, a failed scan,
   or something not scanned); a clean session no longer reports "0 findings" every turn
