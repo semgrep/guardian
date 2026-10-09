@@ -18,8 +18,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto PostToolUse",
-            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto PostToolUse"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto PostToolUse --async",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto PostToolUse --async",
+            "async": true
           }
         ]
       }
@@ -36,15 +37,15 @@
           },
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto SessionStart",
-            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto SessionStart",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto SessionStart --async",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto SessionStart --async",
             "async": true,
             "timeout": 180
           },
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto Update",
-            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto Update",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto Update --async",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto Update --async",
             "async": true,
             "timeout": 180
           }
@@ -58,7 +59,15 @@
             "type": "command",
             "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto Stop",
             "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto Stop",
-            "timeout": 5
+            "timeout": 35
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto StopRewake --async",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto StopRewake --async",
+            "async": true,
+            "asyncRewake": true,
+            "timeout": 600
           }
         ]
       }
