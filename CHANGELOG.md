@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.8.0
+- Fixed hooks failing with an unknown `--async` argument after updating the plugin to 2.7.0 while
+  a 2.6.0 binary was still installed; the self-update hook failed the same way, so it could never
+  recover on its own. The plugin now ignores any downloaded binary older than itself and installs
+  a current one at the next session start, even with auto-update turned off
+
 ## 2.7.0
 - Findings from a scan still running when Claude Code or Codex ends its turn now wake the agent
   when the scan finishes, instead of waiting for the next prompt; Stop no longer holds the end of
@@ -19,6 +25,7 @@
   client secret, into telemetry or hook output
 - Edits and shell commands no longer wait on a round trip to Semgrep before every hook: the
   deployment scans are attributed to is cached with the rest of the deployment details
+- Add support for PowerShell hooks, including on Windows
 
 ## 2.5.1
 

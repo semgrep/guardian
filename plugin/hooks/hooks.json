@@ -2,7 +2,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Write|Edit|Bash|apply_patch",
+        "matcher": "Write|Edit|Bash|PowerShell|apply_patch",
         "hooks": [
           {
             "type": "command",
@@ -14,7 +14,7 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "Write|Edit|Bash|apply_patch",
+        "matcher": "Write|Edit|Bash|PowerShell|apply_patch",
         "hooks": [
           {
             "type": "command",
