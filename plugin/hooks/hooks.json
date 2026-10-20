@@ -68,6 +68,14 @@
             "async": true,
             "asyncRewake": true,
             "timeout": 600
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hook\" auto ShadowReview --async",
+            "commandWindows": "& \"$env:CLAUDE_PLUGIN_ROOT\\scripts\\hook.exe\" auto ShadowReview --async",
+            "async": true,
+            "asyncRewake": true,
+            "timeout": 980
           }
         ]
       }
