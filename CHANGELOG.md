@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.0
+- Guardian now includes ai based detection (private beta)
+
 ## 2.8.0
 - Fixed hooks failing with an unknown `--async` argument after updating the plugin to 2.7.0 while
   a 2.6.0 binary was still installed; the self-update hook failed the same way, so it could never
