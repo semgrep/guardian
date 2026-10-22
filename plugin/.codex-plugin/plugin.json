@@ -40,6 +40,7 @@
       "cwd": ".",
       "env_vars": [
         "SEMGREP_APP_TOKEN",
+        "SEMGREP_GUARDIAN_TOKEN_COMMAND",
         "SEMGREP_SEND_METRICS",
         "DO_NOT_TRACK",
         "DISABLE_TELEMETRY",
@@ -66,5 +67,5 @@
   "name": "semgrep",
   "repository": "https://github.com/semgrep/guardian",
   "skills": "./skills/",
-  "version": "2.9.0"
+  "version": "2.10.0"
 }
