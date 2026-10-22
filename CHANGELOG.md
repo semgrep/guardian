@@ -1,5 +1,38 @@
 # Changelog
 
+## 2.10.0
+- The first tool call of a session is also blocked, once, when the machine's Node.js is affected by
+  the October 2026 Node.js security release (below 26.12.1, 24.22.1 or 22.23.4, or any
+  end-of-life line), so the user hears about it. Spans record `node.version` and `node.vulnerable`.
+  `SEMGREP_GUARDIAN_NODE_CHECK=off` turns the check off
+- Spans record `php.check` and `node.check` (`ok`, `opted_out`, `skipped`, `missing`, `timeout`,
+  `failed` or `unparsed`), so a missing version can be told apart from an opt-out or a slow startup
+- The vulnerable-PHP and Node.js warning shown to the user no longer includes the "Tell the user
+  before continuing" instruction meant for Claude
+- Guardian Shadow can ask the server to run an experimental reviewer alongside a review, when the
+  server lists experiments for the deployment; nothing extra is shown or waited for. Shadow spans
+  record which experiment was requested, or `none`, in `shadow.experiment.name`. An experiment can
+  also send its own choice of supporting files, as a delta that carries only files the review did
+  not already include; it is dropped (`shadow.experiment.skipped`) when the changed files no
+  longer match or the request would exceed the size limit
+- Guardian Shadow no longer repeats itself: an unchanged working tree is not reviewed again, and a
+  finding already shown in the session is not shown again after later edits. Shadow spans record
+  `shadow.findings.repeated` and `shadow.findings.near_miss`, and reviews end `unchanged` or
+  `repeated` when nothing new was shown
+- Added a `status` tool that re-checks Guardian's credentials live, without the startup check's
+  time limit, and says what to do next. The "timed out checking your credentials" and "could not
+  reach Semgrep" startup messages now end with "Ask me to check Guardian status."
+- Added a `/semgrep:reconnect` skill that runs that check and logs you in again if the credential
+  has expired, and tells you to run `/mcp reconnect plugin:semgrep:guardian` if the Guardian
+  server itself is not running
+- The `status` tool's span now records `status.state`, `status.timed_out`, `status.refresh_failed`
+  and `auth.error`, so we can see how often users hit each state
+- `SEMGREP_GUARDIAN_TOKEN_COMMAND` names a program that prints a Semgrep OAuth token, for
+  environments that already hold one, such as Coder external auth. While it is set, Guardian uses
+  only that token, runs the program again when it is refused, and never opens a browser to log in.
+  The token is an OAuth token, so while OAuth is switched off for the deployment, Guardian does not
+  run the program. The `whoami` tool reports `is_token_command_set` while it is in use
+
 ## 2.9.0
 - Guardian now includes ai based detection (private beta)
 
