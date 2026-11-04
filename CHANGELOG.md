@@ -27,6 +27,14 @@
   server itself is not running
 - The `status` tool's span now records `status.state`, `status.timed_out`, `status.refresh_failed`
   and `auth.error`, so we can see how often users hit each state
+- A shell command no longer reports findings that were already there as new when it writes
+  through a `cd`, a script or a package manager: inside a git repository Guardian snapshots the
+  working tree around the command and diffs it, so every file it changed is scanned against its
+  previous content, and the command-string parser only runs outside a repository. Files git does
+  not track (gitignored, in a submodule, marked assume-unchanged or skip-worktree) are not scanned
+  there. `SEMGREP_GUARDIAN_GIT_SNAPSHOT=0` turns this off
+- Line endings no longer make an existing finding read as new: a CRLF file compares equal to its
+  LF baseline, as git stores one under `core.autocrlf`
 - `SEMGREP_GUARDIAN_TOKEN_COMMAND` names a program that prints a Semgrep OAuth token, for
   environments that already hold one, such as Coder external auth. While it is set, Guardian uses
   only that token, runs the program again when it is refused, and never opens a browser to log in.

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "author": {
+    "name": "Semgrep"
+  },
+  "description": "Scans agent-generated code for security vulnerabilities using Semgrep.",
+  "name": "guardian-copilot",
+  "version": "2.10.38"
+}

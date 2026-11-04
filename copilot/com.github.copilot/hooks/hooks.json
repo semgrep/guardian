@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "matcher": "create|edit|apply_patch|bash|powershell",
+        "bash": "${PLUGIN_ROOT}/scripts/hook.sh copilot preToolUse",
+        "powershell": "& \"${PLUGIN_ROOT}\\scripts\\hook.exe\" copilot preToolUse"
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "matcher": "create|edit|apply_patch|bash|powershell",
+        "bash": "${PLUGIN_ROOT}/scripts/hook.sh copilot postToolUse --async",
+        "powershell": "& \"${PLUGIN_ROOT}\\scripts\\hook.exe\" copilot postToolUse --async"
+      }
+    ],
+    "sessionStart": [
+      {
+        "type": "command",
+        "bash": "${PLUGIN_ROOT}/scripts/hook.sh copilot SessionStatus",
+        "powershell": "& \"${PLUGIN_ROOT}\\scripts\\hook.exe\" copilot SessionStatus",
+        "timeoutSec": 5
+      }
+    ],
+    "agentStop": [
+      {
+        "type": "command",
+        "bash": "${PLUGIN_ROOT}/scripts/hook.sh copilot agentStop",
+        "powershell": "& \"${PLUGIN_ROOT}\\scripts\\hook.exe\" copilot agentStop",
+        "timeoutSec": 15
+      }
+    ],
+    "sessionEnd": [
+      {
+        "type": "command",
+        "bash": "${PLUGIN_ROOT}/scripts/hook.sh copilot sessionEnd",
+        "powershell": "& \"${PLUGIN_ROOT}\\scripts\\hook.exe\" copilot sessionEnd"
+      }
+    ],
+    "userPromptSubmitted": [
+      {
+        "type": "command",
+        "bash": "${PLUGIN_ROOT}/scripts/hook.sh copilot userPromptSubmitted",
+        "powershell": "& \"${PLUGIN_ROOT}\\scripts\\hook.exe\" copilot userPromptSubmitted"
+      }
+    ]
+  }
+}

@@ -88,6 +88,15 @@ To turn telemetry off, add `telemetry: false` to `~/.semgrep/guardian.yml`, or s
 
 Guardian updates itself in the background at session start. To turn that off, set `auto_update: false` in `~/.semgrep/guardian.yml` or `SEMGREP_GUARDIAN_AUTO_UPDATE=0`; if Semgrep retires the version you have installed, Guardian stops with an error until you turn auto-update back on.
 
+To check versions, ask your agent to call Guardian's `version` tool. It reports
+the running MCP binary, the installed plugin package, and the binary new hooks
+would launch. If `restart_required` is true, reconnect Guardian's MCP server to
+pick up that binary. It also checks for a newer release and suggests installing it;
+ask your agent to call the `update` tool to do that right away, even with
+auto-update off. The version check works without login; unavailable metadata is
+omitted. The plugin manager's version identifies the package and can
+differ from the binary after an automatic update.
+
 
 ## Rolling out Guardian across your team
 

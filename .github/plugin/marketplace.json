@@ -1,0 +1,13 @@
+{
+  "name": "semgrep-marketplace",
+  "owner": {
+    "name": "Semgrep"
+  },
+  "plugins": [
+    {
+      "name": "guardian-copilot",
+      "source": "./copilot",
+      "description": "Semgrep Guardian: Scans agent-generated code for security vulnerabilities."
+    }
+  ]
+}
