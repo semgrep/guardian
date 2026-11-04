@@ -1,0 +1,31 @@
+#!/bin/sh
+# Platform dispatcher for the guardian hook binary.
+#
+# This file is intentionally extensionless and POSIX sh (not bash): on
+# macOS/Linux the kernel runs it via the shebang, while on native Windows
+# the same command path resolves to the sibling hook.exe (CreateProcess
+# appends .exe; cmd resolves via PATHEXT, or hook.cmd as a fallback), so
+# no shell is required there at all.
+DIR="$(cd "$(dirname "$0")" && pwd)"
+
+if [ -n "$WSL_DISTRO_NAME" ]; then
+  exec "$DIR/hook.exe" "$@"
+fi
+
+case "$(uname -s)" in
+  Darwin)
+    case "$(uname -m)" in
+      arm64|aarch64) exec "$DIR/hook-darwin-arm64" "$@" ;;
+      *)             exec "$DIR/hook-darwin-amd64" "$@" ;;
+    esac ;;
+  Linux)
+    case "$(uname -m)" in
+      arm64|aarch64) exec "$DIR/hook-linux-arm64" "$@" ;;
+      *)             exec "$DIR/hook-linux-amd64" "$@" ;;
+    esac ;;
+  MINGW*|MSYS*|CYGWIN*)
+    exec "$DIR/hook.exe" "$@" ;;
+  *)
+    echo "unsupported platform: $(uname -s)" >&2
+    exit 2 ;;
+esac

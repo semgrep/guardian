@@ -118,10 +118,6 @@ the new file in it:
   and list again to confirm rules are being sent. then tell the user: to keep
   this rule, retire another (the `remove-guardian-developer-semgrep-rule`
   skill) and add it again.
-- `developer rules are n bytes, over the m byte limit` — the same thing by
-  weight rather than by count, and it blocks the same way. delete the new file
-  as above, then offer to shrink the rule (a shorter `message`, less
-  `metadata`, fewer `pattern-not` clauses) and add it again, or retire another.
 
 do not write the fixture until the listing shows every rule being sent and your
 file among them without an error.
