@@ -5,5 +5,5 @@
   },
   "description": "Scans agent-generated code for security vulnerabilities using Semgrep.",
   "name": "guardian-copilot",
-  "version": "2.10.38"
+  "version": "2.10.45"
 }
