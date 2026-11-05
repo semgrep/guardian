@@ -3,7 +3,7 @@
   "mcpServers": {
     "guardian": {
       "type": "stdio",
-      "command": "./scripts/hook.sh",
+      "command": "./scripts/hook",
       "args": ["copilot", "mcp"]
     }
   }

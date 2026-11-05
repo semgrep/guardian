@@ -67,5 +67,5 @@
   "name": "semgrep",
   "repository": "https://github.com/semgrep/guardian",
   "skills": "./skills/",
-  "version": "2.10.38"
+  "version": "2.10.45"
 }
